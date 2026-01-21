@@ -1,0 +1,25 @@
+CREATE SCHEMA hospital_a;
+CREATE SCHEMA hospital_b;
+
+CREATE TABLE hospital_a.patients (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP
+);
+
+CREATE TABLE hospital_b.patients (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP
+);
+
+SELECT schema_name
+FROM information_schema.schemata
+WHERE schema_name IN ('hospital_a', 'hospital_b');
+
+
+SELECT * FROM public.patients;
+
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_name = 'patients';
