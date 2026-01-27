@@ -1,16 +1,15 @@
 package com.mednex.hms.tenant;
 
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MultiTenantConnectionProviderImpl
         implements MultiTenantConnectionProvider {
 
     private static final long serialVersionUID = 1L;
-
     private final DataSource dataSource;
 
     public MultiTenantConnectionProviderImpl(DataSource dataSource) {
@@ -26,15 +25,14 @@ public class MultiTenantConnectionProviderImpl
     public Connection getConnection(Object tenantIdentifier) throws SQLException {
         Connection connection = getAnyConnection();
 
-        String schema = tenantIdentifier != null
+        String schema = (tenantIdentifier != null)
                 ? tenantIdentifier.toString()
                 : "public";
 
-        System.out.println(">>> SETTING SCHEMA = " + schema);
-
-        // ✅ GUARANTEED schema switch
-        connection.createStatement()
-                  .execute("SET search_path TO " + schema);
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("SET search_path TO " + schema);
+            System.out.println(">>> SET search_path TO " + schema);
+        }
 
         return connection;
     }
@@ -48,13 +46,13 @@ public class MultiTenantConnectionProviderImpl
     public void releaseConnection(Object tenantIdentifier, Connection connection)
             throws SQLException {
 
-        // reset to public to avoid tenant leak
-        connection.createStatement()
-                  .execute("SET search_path TO public");
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute("SET search_path TO public");
+        }
 
         connection.close();
     }
-    
+
     @Override
     public boolean supportsAggressiveRelease() {
         return false;

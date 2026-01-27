@@ -1,6 +1,11 @@
 CREATE SCHEMA hospital_a;
 CREATE SCHEMA hospital_b;
 
+
+SELECT schema_name
+FROM information_schema.schemata
+WHERE schema_name IN ('public', 'hospital_a', 'hospital_b');
+
 CREATE TABLE hospital_a.patients (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100),
@@ -13,13 +18,47 @@ CREATE TABLE hospital_b.patients (
     created_at TIMESTAMP
 );
 
-SELECT schema_name
-FROM information_schema.schemata
-WHERE schema_name IN ('hospital_a', 'hospital_b');
+CREATE TABLE hospital_a.patient_admission (
+    id BIGSERIAL PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL,
+    admission_data JSONB,
+    created_at TIMESTAMP
+);
 
 
-SELECT * FROM public.patients;
+CREATE TABLE hospital_b.patient_admission (
+    id BIGSERIAL PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL,
+    admission_data JSONB,
+    created_at TIMESTAMP
+);
+
 
 SELECT table_schema, table_name
 FROM information_schema.tables
-WHERE table_name = 'patients';
+WHERE table_schema IN ('hospital_a', 'hospital_b');
+
+
+SELECT schema_name
+FROM information_schema.schemata
+WHERE schema_name IN ('hospital_a','hospital_b');
+
+SELECT current_database(), current_schema();
+
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_name = 'patient_admission';
+
+SELECT schema_name
+FROM information_schema.schemata;
+
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'hospital_a';
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'hospital_b';
+
+SELECT * FROM hospital_a.patient_admission;
