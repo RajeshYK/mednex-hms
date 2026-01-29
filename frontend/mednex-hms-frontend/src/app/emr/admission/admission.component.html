@@ -1,0 +1,63 @@
+<h2>Patient Admission (EMR)</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <fieldset formGroupName="personal">
+    <legend>Personal Details</legend>
+    <input placeholder="First Name" formControlName="firstName">
+    <input placeholder="Last Name" formControlName="lastName">
+    <input placeholder="Age" formControlName="age">
+    <select formControlName="gender">
+      <option value="">Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+    <input placeholder="Phone" formControlName="phone">
+    <input placeholder="Address" formControlName="address">
+  </fieldset>
+
+  <fieldset formGroupName="vitals">
+    <legend>Vitals</legend>
+    <input placeholder="BP (120/80)" formControlName="bp">
+    <input placeholder="Pulse" formControlName="pulse">
+    <input placeholder="Temperature" formControlName="temperature">
+    <input placeholder="SpO2" formControlName="spo2">
+  </fieldset>
+
+  <fieldset formGroupName="diagnosis">
+    <legend>Diagnosis</legend>
+    <input placeholder="Chief Complaint" formControlName="chiefComplaint">
+    <input placeholder="Provisional Diagnosis" formControlName="provisionalDiagnosis">
+    <input placeholder="Final Diagnosis" formControlName="finalDiagnosis">
+  </fieldset>
+
+  <h3>Medical History</h3>
+  <button type="button" (click)="addHistory()">Add</button>
+  <div formArrayName="history">
+    <div *ngFor="let h of history.controls; let i = index" [formGroupName]="i">
+      <input formControlName="condition">
+      <input formControlName="since">
+    </div>
+  </div>
+
+  <h3>Medications</h3>
+  <button type="button" (click)="addMedication()">Add</button>
+  <div formArrayName="medications">
+    <div *ngFor="let m of medications.controls; let i = index" [formGroupName]="i">
+      <input formControlName="name">
+      <input formControlName="dose">
+      <input formControlName="frequency">
+    </div>
+  </div>
+
+  <h3>Allergies</h3>
+  <button type="button" (click)="addAllergy()">Add</button>
+  <div formArrayName="allergies">
+    <div *ngFor="let a of allergies.controls; let i = index" [formGroupName]="i">
+      <input formControlName="allergen">
+      <input formControlName="reaction">
+    </div>
+  </div>
+
+  <button type="submit">Save Admission</button>
+</form>
