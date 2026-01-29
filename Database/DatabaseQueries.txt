@@ -1,0 +1,39 @@
+-- =========================
+-- WEEK 1: TENANT SCHEMAS
+-- =========================
+CREATE SCHEMA IF NOT EXISTS hospital_a;
+CREATE SCHEMA IF NOT EXISTS hospital_b;
+
+-- =========================
+-- WEEK 1: PATIENT TABLE
+-- =========================
+CREATE TABLE IF NOT EXISTS hospital_a.patients (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS hospital_b.patients (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    created_at TIMESTAMP
+);
+
+-- =========================
+-- WEEK 2: EMR – PATIENT ADMISSION (JSONB)
+-- =========================
+CREATE TABLE IF NOT EXISTS hospital_a.patient_admission (
+    id UUID PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL,
+    admission_data JSONB,
+    created_at TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS hospital_b.patient_admission (
+    id UUID PRIMARY KEY,
+    patient_id VARCHAR(50) NOT NULL,
+    admission_data JSONB,
+    created_at TIMESTAMP
+);
+
+-- ================
