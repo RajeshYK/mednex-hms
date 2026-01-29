@@ -1,5 +1,8 @@
-CREATE SCHEMA hospital_a;
-CREATE SCHEMA hospital_b;
+-- =========================
+-- WEEK 1: TENANT SCHEMAS
+-- =========================
+CREATE SCHEMA IF NOT EXISTS hospital_a;
+CREATE SCHEMA IF NOT EXISTS hospital_b;
 
 
 SELECT schema_name
@@ -12,7 +15,7 @@ CREATE TABLE hospital_a.patients (
     created_at TIMESTAMP
 );
 
-CREATE TABLE hospital_b.patients (
+CREATE TABLE IF NOT EXISTS hospital_b.patients (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100),
     created_at TIMESTAMP
