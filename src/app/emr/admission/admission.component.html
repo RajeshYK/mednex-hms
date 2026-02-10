@@ -2,7 +2,6 @@
 
 <form [formGroup]="form" (ngSubmit)="submit()">
 
-<<<<<<< HEAD
   <!-- ================= PERSONAL DETAILS ================= -->
   <fieldset formGroupName="personal">
     <legend>Personal Details</legend>
@@ -33,32 +32,21 @@
       </span>
     </div>
 
-=======
-  <fieldset formGroupName="personal">
-    <legend>Personal Details</legend>
-    <input placeholder="First Name" formControlName="firstName">
-    <input placeholder="Last Name" formControlName="lastName">
-    <input placeholder="Age" formControlName="age">
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
     <select formControlName="gender">
       <option value="">Gender</option>
       <option>Male</option>
       <option>Female</option>
     </select>
-<<<<<<< HEAD
     <div class="error"
       *ngIf="form.get('personal.gender')?.touched &&
              form.get('personal.gender')?.hasError('required')">
       Gender is required
     </div>
 
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
     <input placeholder="Phone" formControlName="phone">
     <input placeholder="Address" formControlName="address">
   </fieldset>
 
-<<<<<<< HEAD
   <!-- ================= VITALS ================= -->
   <fieldset formGroupName="vitals">
     <legend>Vitals</legend>
@@ -75,17 +63,11 @@
       </span>
     </div>
 
-=======
-  <fieldset formGroupName="vitals">
-    <legend>Vitals</legend>
-    <input placeholder="BP (120/80)" formControlName="bp">
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
     <input placeholder="Pulse" formControlName="pulse">
     <input placeholder="Temperature" formControlName="temperature">
     <input placeholder="SpO2" formControlName="spo2">
   </fieldset>
 
-<<<<<<< HEAD
   <!-- ================= DIAGNOSIS ================= -->
   <fieldset formGroupName="diagnosis">
     <legend>Diagnosis</legend>
@@ -97,16 +79,10 @@
       Chief complaint is required
     </div>
 
-=======
-  <fieldset formGroupName="diagnosis">
-    <legend>Diagnosis</legend>
-    <input placeholder="Chief Complaint" formControlName="chiefComplaint">
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
     <input placeholder="Provisional Diagnosis" formControlName="provisionalDiagnosis">
     <input placeholder="Final Diagnosis" formControlName="finalDiagnosis">
   </fieldset>
 
-<<<<<<< HEAD
   <!-- ================= EMERGENCY CONTACT ================= -->
   <fieldset formGroupName="emergency">
     <legend>Emergency Contact</legend>
@@ -180,35 +156,4 @@
   <!-- ================= SAVE ================= -->
   <button type="submit">Save Admission</button>
 
-=======
-  <h3>Medical History</h3>
-  <button type="button" (click)="addHistory()">Add</button>
-  <div formArrayName="history">
-    <div *ngFor="let h of history.controls; let i = index" [formGroupName]="i">
-      <input formControlName="condition">
-      <input formControlName="since">
-    </div>
-  </div>
-
-  <h3>Medications</h3>
-  <button type="button" (click)="addMedication()">Add</button>
-  <div formArrayName="medications">
-    <div *ngFor="let m of medications.controls; let i = index" [formGroupName]="i">
-      <input formControlName="name">
-      <input formControlName="dose">
-      <input formControlName="frequency">
-    </div>
-  </div>
-
-  <h3>Allergies</h3>
-  <button type="button" (click)="addAllergy()">Add</button>
-  <div formArrayName="allergies">
-    <div *ngFor="let a of allergies.controls; let i = index" [formGroupName]="i">
-      <input formControlName="allergen">
-      <input formControlName="reaction">
-    </div>
-  </div>
-
-  <button type="submit">Save Admission</button>
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
 </form>

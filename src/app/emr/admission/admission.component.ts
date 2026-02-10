@@ -25,17 +25,12 @@ export class AdmissionComponent {
     this.form = this.buildForm();
   }
 
-<<<<<<< HEAD
   // ================= BUILD FORM =================
 
   private buildForm(): FormGroup {
     return this.fb.group({
 
       // -------- PERSONAL DETAILS --------
-=======
-  private buildForm(): FormGroup {
-    return this.fb.group({
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       personal: this.fb.group({
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -45,10 +40,7 @@ export class AdmissionComponent {
         address: ['']
       }),
 
-<<<<<<< HEAD
       // -------- VITALS --------
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       vitals: this.fb.group({
         bp: ['', [Validators.required, bpValidator]],
         pulse: [''],
@@ -56,17 +48,13 @@ export class AdmissionComponent {
         spo2: ['']
       }),
 
-<<<<<<< HEAD
       // -------- DIAGNOSIS --------
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       diagnosis: this.fb.group({
         chiefComplaint: ['', Validators.required],
         provisionalDiagnosis: [''],
         finalDiagnosis: ['']
       }),
 
-<<<<<<< HEAD
       // -------- EMERGENCY CONTACT --------
       emergency: this.fb.group({
         contactName: [''],
@@ -96,34 +84,22 @@ export class AdmissionComponent {
       }),
 
       // -------- DYNAMIC ARRAYS --------
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       history: this.fb.array([]),
       medications: this.fb.array([]),
       allergies: this.fb.array([]),
 
-<<<<<<< HEAD
       // -------- INSURANCE --------
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       insurance: this.fb.group({
         provider: [''],
         policyNumber: ['']
       }),
 
-<<<<<<< HEAD
       // -------- NOTES --------
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       notes: ['']
     });
   }
 
-<<<<<<< HEAD
   // ================= FORM ARRAYS =================
-=======
-  // ---------- FORM ARRAYS ----------
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
 
   get history(): FormArray {
     return this.form.get('history') as FormArray;
@@ -165,11 +141,7 @@ export class AdmissionComponent {
     );
   }
 
-<<<<<<< HEAD
   // ================= SUBMIT =================
-=======
-  // ---------- SUBMIT ----------
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
 
   submit() {
     if (this.form.invalid) {
@@ -177,23 +149,16 @@ export class AdmissionComponent {
       return;
     }
 
-<<<<<<< HEAD
     const patientId = 'P123'; // TEMP → later from route / auth / state
 
     this.service.saveAdmission(patientId, this.form.value).subscribe({
-=======
-    this.service.saveAdmission(this.form.value).subscribe({
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
       next: () => alert('Admission Saved'),
       error: () => alert('Save Failed')
     });
   }
-<<<<<<< HEAD
 
   // ================= PERFORMANCE =================
   trackByIndex(index: number): number {
     return index;
   }
-=======
->>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
 }

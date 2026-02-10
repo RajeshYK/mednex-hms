@@ -7,6 +7,7 @@ import { AnalyticsDashboardComponent } from './analytics/analytics-dashboard.com
 import { RoleGuard } from './core/role.guard';
 
 export const routes: Routes = [
+<<<<<<< HEAD
 
   // 🔐 LOGIN PAGE
   { path: 'login', component: LoginComponent },
@@ -36,4 +37,31 @@ export const routes: Routes = [
 
   // Fallback
   { path: '**', redirectTo: 'login' }
+=======
+  // =========================
+  // Week 1 – Default Screen
+  // =========================
+  {
+    path: '',
+    component: PatientComponent
+  },
+
+  // =========================
+  // Week 2 – EMR Module
+  // URL: /emr/admission
+  // =========================
+  {
+    path: 'emr',
+    loadChildren: () =>
+      import('./emr/emr.routes').then(m => m.EMR_ROUTES)
+  },
+
+  // =========================
+  // Fallback (Optional but Recommended)
+  // =========================
+  {
+    path: '**',
+    redirectTo: ''
+  }
+>>>>>>> 58469bf046b0b5736d13d956c81f9c73f0d8b4fd
 ];
