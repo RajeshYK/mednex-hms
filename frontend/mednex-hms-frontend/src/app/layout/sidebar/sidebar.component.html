@@ -1,0 +1,39 @@
+<mat-nav-list>
+
+  <!-- Patients: ADMIN + DOCTOR -->
+  <a mat-list-item
+     routerLink="/app/patients"
+     routerLinkActive="active"
+     *ngIf="auth.isAdmin() || auth.isDoctor()">
+    <mat-icon>people</mat-icon>
+    <span>Patients</span>
+  </a>
+
+  <!-- EMR: ADMIN + DOCTOR + NURSE -->
+  <a mat-list-item
+     routerLink="/app/emr/admission"
+     routerLinkActive="active"
+     *ngIf="auth.isAdmin() || auth.isDoctor() || auth.isNurse()">
+    <mat-icon>assignment</mat-icon>
+    <span>EMR Admission</span>
+  </a>
+
+  <!-- Appointments: ADMIN + DOCTOR -->
+  <a mat-list-item
+     routerLink="/app/appointments"
+     routerLinkActive="active"
+     *ngIf="auth.isAdmin() || auth.isDoctor()">
+    <mat-icon>event</mat-icon>
+    <span>Appointments</span>
+  </a>
+
+  <!-- Analytics: ADMIN ONLY -->
+  <a mat-list-item
+     routerLink="/app/analytics"
+     routerLinkActive="active"
+     *ngIf="auth.isAdmin()">
+    <mat-icon>analytics</mat-icon>
+    <span>Analytics</span>
+  </a>
+
+</mat-nav-list>

@@ -1,0 +1,43 @@
+<div class="login-wrapper">
+  <mat-card class="login-card">
+
+    <mat-card-title class="title">
+      MedNex HMS
+    </mat-card-title>
+
+    <mat-card-subtitle class="subtitle">
+      Enterprise Hospital Login
+    </mat-card-subtitle>
+
+    <!-- HOSPITAL SELECTION -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Hospital</mat-label>
+      <mat-select [(ngModel)]="tenant" placeholder="Select Hospital">
+        <mat-option value="hospital_a">Hospital A</mat-option>
+        <mat-option value="hospital_b">Hospital B</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- ROLE SELECTION -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <mat-select [(ngModel)]="role" placeholder="Select Role">
+        <mat-option value="ADMIN">Admin</mat-option>
+        <mat-option value="DOCTOR">Doctor</mat-option>
+        <mat-option value="NURSE">Nurse</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- LOGIN BUTTON -->
+    <button
+      mat-raised-button
+      color="primary"
+      class="login-btn"
+      (click)="login()"
+      [disabled]="!tenant || !role"
+    >
+      Login
+    </button>
+
+  </mat-card>
+</div>

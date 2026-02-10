@@ -1,61 +1,52 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PatientService } from './patient.service';
 
 @Component({
   selector: 'app-patient',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="card">
-      <h2>Tenant Patient View</h2>
-
-      <div class="tenant-buttons">
-        <button class="tenant-btn" (click)="setTenant('hospital_a')">
-          Hospital A
-        </button>
-
-        <button class="tenant-btn" (click)="setTenant('hospital_b')">
-          Hospital B
-        </button>
-      </div>
-
-      <button class="load-btn" (click)="loadPatients()">
-        Load Patients
-      </button>
-
-      <ul *ngIf="patients.length > 0">
-        <li *ngFor="let p of patients">{{ p.name }}</li>
-      </ul>
-
-      <p *ngIf="patients.length === 0" class="hint">
-    
-      </p>
-    </div>
-  `
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatButtonToggleModule
+  ],
+  templateUrl: './patient.component.html',
+  styleUrls: ['./patient.component.css']
 })
 export class PatientComponent {
+
+  selectedTenant = 'hospital_a';
   patients: any[] = [];
+  loading = false;
 
-  constructor(private service: PatientService) {}
+  constructor(private patientService: PatientService) {
+    // default tenant
+    localStorage.setItem('TENANT_ID', this.selectedTenant);
+  }
 
-  setTenant(tenant: string) {
-    localStorage.setItem('TENANT_ID', tenant);
-    alert(`Tenant set to ${tenant}`);
+  selectTenant(tenant: string) {
+    this.selectedTenant = tenant;
+    localStorage.setItem('TENANT_ID', tenant); // ✅ REQUIRED
     this.patients = [];
   }
 
   loadPatients() {
-  const tenant = localStorage.getItem('TENANT_ID');
+    this.loading = true;
 
-  if (!tenant) {
-    alert('Please select Hospital A or B first');
-    return;
-  }
-
-  this.service.getPatients().subscribe({
-    next: res => this.patients = res,
-    error: err => alert(err.error)
-  });
+    this.patientService.getPatients().subscribe({
+      next: (data) => {
+        console.log('Patients from backend:', data);
+        this.patients = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Failed to load patients', err);
+        this.loading = false;
+      }
+    });
   }
 }

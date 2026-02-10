@@ -1,0 +1,16 @@
+h2 {
+  margin-bottom: 12px;
+}
+
+full-calendar {
+  display: block;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+}
