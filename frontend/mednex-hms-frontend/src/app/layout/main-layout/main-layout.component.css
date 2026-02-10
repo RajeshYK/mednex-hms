@@ -1,0 +1,9 @@
+.container {
+  height: calc(100vh - 64px); /* toolbar height */
+}
+
+.content {
+  padding: 20px;
+  background: #f8fafc;
+  min-height: 100%;
+}

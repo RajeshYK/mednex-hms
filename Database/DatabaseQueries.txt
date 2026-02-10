@@ -62,3 +62,94 @@ FROM information_schema.tables
 WHERE table_schema = 'hospital_b';
 
 SELECT * FROM hospital_a.patient_admission;
+
+
+CREATE TABLE IF NOT EXISTS appointments (
+    id BIGSERIAL PRIMARY KEY,
+    doctor_id VARCHAR(50) NOT NULL,
+    patient_id VARCHAR(50) NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    status VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE audit_logs (
+  id BIGSERIAL PRIMARY KEY,
+  action VARCHAR(100),
+  entity_type VARCHAR(100),
+  entity_id VARCHAR(50),
+  role VARCHAR(50),
+  tenant VARCHAR(50),
+  accessed_at TIMESTAMP
+);
+
+ALTER TABLE appointments
+ADD COLUMN reminder_sent BOOLEAN NOT NULL DEFAULT FALSE;
+
+select * from hospital_a.appointments;
+
+SELECT schema_name
+FROM information_schema.schemata;
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'hospital_a';
+
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'hospital_a'
+  AND table_name = 'appointments';
+
+  SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_schema = 'hospital_a'
+  AND table_name = 'patients';
+
+  CREATE TABLE hospital_a.appointments (
+    id BIGSERIAL PRIMARY KEY,
+    doctor_id VARCHAR(100) NOT NULL,
+    patient_id VARCHAR(100) NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    status VARCHAR(50),
+    reminder_sent BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT now()
+);
+
+
+CREATE TABLE hospital_a.audit_logs (
+    id BIGSERIAL PRIMARY KEY,
+    accessed_at TIMESTAMP NOT NULL DEFAULT now(),
+    action VARCHAR(100) NOT NULL,
+    entity_type VARCHAR(100),
+    entity_id VARCHAR(100),   -- allow NULL for now
+    role VARCHAR(50),
+    tenant VARCHAR(50)
+);
+
+
+SELECT schema_name
+FROM information_schema.schemata
+WHERE schema_name IN ('hospital_a', 'hospital_b');
+
+SET search_path TO hospital_a;
+
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'hospital_a';
+
+
+SELECT
+    id,
+    doctor_id,
+    patient_id,
+    start_time,
+    end_time,
+    status,
+    reminder_sent,
+    created_at
+FROM hospital_a.appointments
+ORDER BY created_at DESC;
+

@@ -1,0 +1,79 @@
+<h2>Hospital Analytics Dashboard</h2>
+
+<!-- ================= KPI CARDS ================= -->
+<div class="kpi-grid">
+
+  <mat-card>
+    <mat-card-title>Total Beds</mat-card-title>
+    <mat-card-content>{{ totalBeds }}</mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Occupied Beds</mat-card-title>
+    <mat-card-content>{{ occupiedBeds }}</mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Available Beds</mat-card-title>
+    <mat-card-content>{{ availableBeds }}</mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Active Patients</mat-card-title>
+    <mat-card-content>{{ activePatients }}</mat-card-content>
+  </mat-card>
+
+</div>
+
+<!-- ================= BED OCCUPANCY ================= -->
+<mat-card class="section">
+  <mat-card-title>Bed Occupancy Rate</mat-card-title>
+
+  <mat-progress-bar
+    mode="determinate"
+    [value]="occupancyRate">
+  </mat-progress-bar>
+
+  <p>{{ occupancyRate }}% Occupied</p>
+</mat-card>
+
+<!-- ================= EXPORT ================= -->
+<mat-card class="section">
+  <mat-card-title>Patient History Export</mat-card-title>
+
+  <button mat-raised-button color="primary" (click)="exportPdf()">
+    Export Encrypted PDF
+  </button>
+</mat-card>
+
+<!-- ================= AUDIT LOGS ================= -->
+<mat-card class="section">
+  <mat-card-title>Access Audit Logs</mat-card-title>
+
+  <table mat-table [dataSource]="auditLogs" class="full-width">
+
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef>User</th>
+      <td mat-cell *matCellDef="let row">{{ row.user }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let row">{{ row.action }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="record">
+      <th mat-header-cell *matHeaderCellDef>Record</th>
+      <td mat-cell *matCellDef="let row">{{ row.record }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Time</th>
+      <td mat-cell *matCellDef="let row">{{ row.time }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</mat-card>

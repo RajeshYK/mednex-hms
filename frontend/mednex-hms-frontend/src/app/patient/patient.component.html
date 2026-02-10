@@ -1,0 +1,29 @@
+<mat-card>
+  <h2>Patients</h2>
+
+  <mat-button-toggle-group
+    [value]="selectedTenant"
+    (change)="selectTenant($event.value)"
+  >
+    <mat-button-toggle value="hospital_a">Hospital A</mat-button-toggle>
+    <mat-button-toggle value="hospital_b">Hospital B</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <br /><br />
+
+  <button mat-raised-button color="primary" (click)="loadPatients()">
+    Load Patients
+  </button>
+
+  <p *ngIf="loading">Loading...</p>
+
+  <ul *ngIf="patients.length > 0">
+    <li *ngFor="let p of patients">
+      {{ p.name }}
+    </li>
+  </ul>
+
+  <p *ngIf="!loading && patients.length === 0">
+    No patients found
+  </p>
+</mat-card>

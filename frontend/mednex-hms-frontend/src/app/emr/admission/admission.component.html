@@ -1,0 +1,159 @@
+<h2>Patient Admission (EMR)</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <!-- ================= PERSONAL DETAILS ================= -->
+  <fieldset formGroupName="personal">
+    <legend>Personal Details</legend>
+
+    <input placeholder="First Name" formControlName="firstName">
+    <div class="error"
+      *ngIf="form.get('personal.firstName')?.touched &&
+             form.get('personal.firstName')?.hasError('required')">
+      First name is required
+    </div>
+
+    <input placeholder="Last Name" formControlName="lastName">
+    <div class="error"
+      *ngIf="form.get('personal.lastName')?.touched &&
+             form.get('personal.lastName')?.hasError('required')">
+      Last name is required
+    </div>
+
+    <input placeholder="Age" formControlName="age">
+    <div class="error"
+      *ngIf="form.get('personal.age')?.touched &&
+             form.get('personal.age')?.errors">
+      <span *ngIf="form.get('personal.age')?.hasError('required')">
+        Age is required
+      </span>
+      <span *ngIf="form.get('personal.age')?.hasError('min')">
+        Age must be 0 or above
+      </span>
+    </div>
+
+    <select formControlName="gender">
+      <option value="">Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
+    <div class="error"
+      *ngIf="form.get('personal.gender')?.touched &&
+             form.get('personal.gender')?.hasError('required')">
+      Gender is required
+    </div>
+
+    <input placeholder="Phone" formControlName="phone">
+    <input placeholder="Address" formControlName="address">
+  </fieldset>
+
+  <!-- ================= VITALS ================= -->
+  <fieldset formGroupName="vitals">
+    <legend>Vitals</legend>
+
+    <input placeholder="BP (120/80)" formControlName="bp">
+    <div class="error"
+      *ngIf="form.get('vitals.bp')?.touched &&
+             form.get('vitals.bp')?.errors">
+      <span *ngIf="form.get('vitals.bp')?.hasError('required')">
+        BP is required
+      </span>
+      <span *ngIf="form.get('vitals.bp')?.hasError('invalidBP')">
+        BP must be in format 120/80
+      </span>
+    </div>
+
+    <input placeholder="Pulse" formControlName="pulse">
+    <input placeholder="Temperature" formControlName="temperature">
+    <input placeholder="SpO2" formControlName="spo2">
+  </fieldset>
+
+  <!-- ================= DIAGNOSIS ================= -->
+  <fieldset formGroupName="diagnosis">
+    <legend>Diagnosis</legend>
+
+    <input placeholder="Chief Complaint" formControlName="chiefComplaint">
+    <div class="error"
+      *ngIf="form.get('diagnosis.chiefComplaint')?.touched &&
+             form.get('diagnosis.chiefComplaint')?.hasError('required')">
+      Chief complaint is required
+    </div>
+
+    <input placeholder="Provisional Diagnosis" formControlName="provisionalDiagnosis">
+    <input placeholder="Final Diagnosis" formControlName="finalDiagnosis">
+  </fieldset>
+
+  <!-- ================= EMERGENCY CONTACT ================= -->
+  <fieldset formGroupName="emergency">
+    <legend>Emergency Contact</legend>
+
+    <input placeholder="Contact Name" formControlName="contactName">
+    <input placeholder="Contact Phone" formControlName="contactPhone">
+    <input placeholder="Relation" formControlName="relation">
+  </fieldset>
+
+  <!-- ================= MEDICAL HISTORY ================= -->
+  <h3>Medical History</h3>
+  <button type="button" (click)="addHistory()">Add</button>
+
+  <div formArrayName="history">
+    <div
+      *ngFor="let h of history.controls; let i = index; trackBy: trackByIndex"
+      [formGroupName]="i"
+    >
+      <input placeholder="Condition" formControlName="condition">
+      <div class="error"
+        *ngIf="h.get('condition')?.touched &&
+               h.get('condition')?.hasError('required')">
+        Condition is required
+      </div>
+
+      <input placeholder="Since" formControlName="since">
+    </div>
+  </div>
+
+  <!-- ================= MEDICATIONS ================= -->
+  <h3>Medications</h3>
+  <button type="button" (click)="addMedication()">Add</button>
+
+  <div formArrayName="medications">
+    <div
+      *ngFor="let m of medications.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <input placeholder="Name" formControlName="name">
+      <div class="error"
+        *ngIf="m.get('name')?.touched &&
+               m.get('name')?.hasError('required')">
+        Medication name is required
+      </div>
+
+      <input placeholder="Dose" formControlName="dose">
+      <input placeholder="Frequency" formControlName="frequency">
+    </div>
+  </div>
+
+  <!-- ================= ALLERGIES ================= -->
+  <h3>Allergies</h3>
+  <button type="button" (click)="addAllergy()">Add</button>
+
+  <div formArrayName="allergies">
+    <div
+      *ngFor="let a of allergies.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <input placeholder="Allergen" formControlName="allergen">
+      <div class="error"
+        *ngIf="a.get('allergen')?.touched &&
+               a.get('allergen')?.hasError('required')">
+        Allergen is required
+      </div>
+
+      <input placeholder="Reaction" formControlName="reaction">
+    </div>
+  </div>
+
+  <!-- ================= SAVE ================= -->
+  <button type="submit">Save Admission</button>
+
+</form>

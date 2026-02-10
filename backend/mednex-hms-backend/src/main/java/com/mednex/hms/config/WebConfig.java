@@ -3,6 +3,7 @@ package com.mednex.hms.config;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 import com.mednex.hms.tenant.TenantFilter;
 
@@ -16,7 +17,7 @@ public class WebConfig {
 
         registration.setFilter(new TenantFilter());
         registration.addUrlPatterns("/*");
-        registration.setOrder(1);
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
         return registration;
     }

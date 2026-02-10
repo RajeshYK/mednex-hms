@@ -1,0 +1,17 @@
+.tenant-card {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.tenant-toggle {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.action-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
